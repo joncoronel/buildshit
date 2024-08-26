@@ -1,0 +1,13 @@
+{
+  "photographer": {
+    "name": "Grigorii Shcheglov",
+    "social": "@shegiva on Unsplash"
+  },
+  "metadata": {
+    "location": "Bogliasco, Italy",
+    "camera": {
+      "brand": "FUJIFILM",
+      "model": "X-T30 II"
+    }
+  }
+}
