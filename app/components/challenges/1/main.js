@@ -7,7 +7,7 @@ import { RefreshCw } from "lucide-react";
 import Photo from "@/public/challenges/1/photo.avif";
 import data from "./data.json";
 
-export default function Main() {
+export const Idea1 = () => {
   const [isFlipped, setIsFlipped] = useState(false);
 
   return (
@@ -72,4 +72,4 @@ export default function Main() {
       </motion.div>
     </div>
   );
-}
+};

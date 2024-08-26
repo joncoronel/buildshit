@@ -1,4 +1,4 @@
-import Challenge1 from "./components/challenges/1/main";
+import { Idea1 } from "./components/challenges/1/main";
 
 export default function Home() {
   return (
@@ -7,7 +7,9 @@ export default function Home() {
         {/* build shit challenge 1 */}
         <div className="flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Build Shit Challenge 1</h1>
-          <Challenge1 />
+          <div className="flex flex-col gap-4">
+            <Idea1 />
+          </div>
         </div>
       </main>
     </div>
