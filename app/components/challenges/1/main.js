@@ -6,6 +6,7 @@ import Image from "next/image";
 import { RefreshCw, CircleArrowUp } from "lucide-react";
 import Photo from "@/public/challenges/1/photo.avif";
 import data from "./data.json";
+import styles from "./blur.module.css";
 
 export const Idea1 = () => {
   const [isFlipped, setIsFlipped] = useState(false);
@@ -185,6 +186,51 @@ export const Idea5 = () => {
       >
         {activeView === "photo" ? "View Metadata" : "View Photo"}
       </button>
+    </div>
+  );
+};
+
+export const Idea6 = () => {
+  return (
+    <div className="w-full flex max-w-xs relative overflow-hidden rounded-lg shadow-lg group">
+      <div className="relative aspect-[3/4] w-full">
+        <Image
+          src={Photo}
+          alt="Photograph"
+          fill
+          style={{ objectFit: "cover" }}
+          sizes="(max-width: 384px) 100vw, 384px"
+        />
+        {/* Progressive blur for photographer info */}
+        <div className={`${styles.gradientBlur} ${styles.gradientBlurBottom}`}>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
+          <p className="font-bold">{data.photographer.name}</p>
+          <p className="text-sm">{data.photographer.social}</p>
+        </div>
+        {/* Blurred overlay with metadata (revealed on hover) */}
+        <div className="absolute inset-0 flex items-center justify-center backdrop-blur-md bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="text-white p-4">
+            <h2 className="text-xl font-bold mb-2">Metadata</h2>
+            <ul>
+              <li className="mb-1">
+                <span className="font-semibold">Location:</span>{" "}
+                {data.metadata.location}
+              </li>
+              <li className="mb-1">
+                <span className="font-semibold">Camera:</span>{" "}
+                {data.metadata.camera.brand} {data.metadata.camera.model}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
