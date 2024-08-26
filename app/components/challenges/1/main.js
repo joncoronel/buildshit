@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { RefreshCw } from "lucide-react";
+import { RefreshCw, CircleArrowUp } from "lucide-react";
 import Photo from "@/public/challenges/1/photo.avif";
 import data from "./data.json";
 
@@ -15,9 +15,12 @@ export const Idea1 = () => {
       <motion.div
         className="w-full aspect-[3/4] cursor-pointer relative [transform-style:preserve-3d] group"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.3 }}
         onClick={() => setIsFlipped(!isFlipped)}
         whileHover={{ scale: 1.05 }}
+        transition={{
+          type: "spring",
+          duration: 0.5,
+        }}
       >
         {/* Flip indicator */}
         <motion.div
@@ -78,7 +81,7 @@ export const Idea2 = () => {
   const [isRevealed, setIsRevealed] = useState(false);
 
   return (
-    <div className="flex w-full max-w-xs h-auto  relative overflow-hidden rounded-lg shadow-lg">
+    <div className="flex w-full max-w-xs h-auto relative overflow-hidden rounded-lg shadow-lg">
       <div className="relative aspect-[3/4] w-full">
         <Image
           src={Photo}
@@ -95,8 +98,13 @@ export const Idea2 = () => {
       <motion.div
         className="absolute inset-0 bg-white text-black p-4"
         initial={{ y: "100%" }}
-        animate={{ y: isRevealed ? 0 : "100%" }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        animate={{ y: isRevealed ? "10%" : "100%" }}
+        style={{ bottom: "-1px" }}
+        transition={{
+          type: "spring",
+          bounce: 0,
+          duration: 0.3,
+        }}
       >
         <h2 className="text-xl font-bold mb-2">Metadata</h2>
         <ul>
@@ -111,13 +119,19 @@ export const Idea2 = () => {
         </ul>
       </motion.div>
       <button
-        className="absolute top-2 right-2 bg-white rounded-full p-2 shadow-md"
+        className="absolute bottom-2 right-2 bg-black/50 rounded-full p-2 shadow-md"
         onClick={() => setIsRevealed(!isRevealed)}
       >
         <motion.div animate={{ rotate: isRevealed ? 180 : 0 }}>
-          <RefreshCw className="h-6 w-6 text-gray-800" />
+          <CircleArrowUp className="h-6 w-6 text-white" />
         </motion.div>
       </button>
+      {isRevealed && (
+        <div
+          className="absolute top-0 left-0 right-0 h-[10%] cursor-pointer"
+          onClick={() => setIsRevealed(false)}
+        />
+      )}
     </div>
   );
 };
