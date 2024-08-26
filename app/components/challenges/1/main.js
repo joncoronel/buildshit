@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { RefreshCw } from "lucide-react";
 import Photo from "@/public/challenges/1/photo.avif";
 import data from "./data.json";
 
@@ -12,14 +13,28 @@ export default function Main() {
   return (
     <div className="w-full max-w-sm mx-auto [perspective:1000px]">
       <motion.div
-        className="w-full aspect-[3/4] cursor-pointer relative [transform-style:preserve-3d]"
+        className="w-full aspect-[3/4] cursor-pointer relative [transform-style:preserve-3d] group"
         animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.3 }}
         onClick={() => setIsFlipped(!isFlipped)}
+        whileHover={{ scale: 1.05 }}
       >
+        {/* Flip indicator */}
+        <motion.div
+          className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10"
+          whileHover={{ rotate: 360 }}
+          transition={{ duration: 0.5 }}
+        >
+          <RefreshCw
+            className={`h-6 w-6 ${
+              isFlipped ? "text-gray-800" : "text-white"
+            } drop-shadow-lg`}
+          />
+        </motion.div>
+
         {/* Front view */}
         <div className="absolute inset-0 [backface-visibility:hidden]">
-          <div className="relative w-full h-full  rounded-lg shadow-lg overflow-hidden">
+          <div className="relative w-full h-full rounded-lg shadow-lg overflow-hidden">
             <div className="relative w-full h-full">
               <Image
                 src={Photo}
