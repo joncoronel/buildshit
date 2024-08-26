@@ -136,36 +136,21 @@ export const Idea2 = () => {
   );
 };
 
-export const Idea3 = () => {
-  const [activeTab, setActiveTab] = useState("photo");
+export const Idea5 = () => {
+  const [activeView, setActiveView] = useState("photo");
 
   return (
-    <div className="w-full max-w-xs  bg-white rounded-lg shadow-lg overflow-hidden">
-      <div className="flex">
-        <button
-          className={`flex-1 py-2 ${
-            activeTab === "photo" ? "bg-gray-200" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("photo")}
-        >
-          Photo
-        </button>
-        <button
-          className={`flex-1 py-2 ${
-            activeTab === "metadata" ? "bg-gray-200" : "bg-white"
-          }`}
-          onClick={() => setActiveTab("metadata")}
-        >
-          Metadata
-        </button>
-      </div>
+    <div className="w-full flex max-w-xs  relative overflow-hidden rounded-lg shadow-lg">
       <motion.div
-        className="relative aspect-[3/4]"
-        initial={false}
-        animate={{ x: activeTab === "photo" ? 0 : "-100%" }}
-        transition={{ type: "tween", ease: "easeInOut" }}
+        className="absolute inset-0 flex"
+        animate={{ x: activeView === "photo" ? "0%" : "-100%" }}
+        transition={{
+          type: "spring",
+          bounce: 0,
+          duration: 0.3,
+        }}
       >
-        <div className="absolute inset-0">
+        <div className="w-full h-full flex-shrink-0 relative">
           <Image
             src={Photo}
             alt="Photograph"
@@ -178,20 +163,28 @@ export const Idea3 = () => {
             <p className="text-sm">{data.photographer.social}</p>
           </div>
         </div>
-        <div className="absolute inset-0 left-full w-full p-4 bg-white text-black">
-          <h2 className="text-xl font-bold mb-2">Metadata</h2>
+        <div className="w-full h-full flex-shrink-0 bg-white p-4 flex flex-col justify-center">
+          <h2 className="text-xl font-bold mb-4">Metadata</h2>
           <ul>
-            <li className="mb-1">
+            <li className="mb-2">
               <span className="font-semibold">Location:</span>{" "}
               {data.metadata.location}
             </li>
-            <li className="mb-1">
+            <li className="mb-2">
               <span className="font-semibold">Camera:</span>{" "}
               {data.metadata.camera.brand} {data.metadata.camera.model}
             </li>
           </ul>
         </div>
       </motion.div>
+      <button
+        className="absolute bottom-4 right-4 bg-white text-black text-sm px-4 py-2 rounded-full shadow-lg"
+        onClick={() =>
+          setActiveView(activeView === "photo" ? "metadata" : "photo")
+        }
+      >
+        {activeView === "photo" ? "View Metadata" : "View Photo"}
+      </button>
     </div>
   );
 };

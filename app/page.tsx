@@ -1,4 +1,4 @@
-import { Idea1, Idea2, Idea3 } from "./components/challenges/1/main";
+import { Idea1, Idea2, Idea5 } from "./components/challenges/1/main";
 
 export default function Home() {
   return (
@@ -10,7 +10,8 @@ export default function Home() {
           <div className="flex  w-full gap-4 flex-wrap">
             <Idea1 />
             <Idea2 />
-            <Idea3 />
+
+            <Idea5 />
           </div>
         </div>
       </main>
