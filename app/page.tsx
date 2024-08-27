@@ -1,4 +1,10 @@
-import { Idea1, Idea2, Idea5, Idea6 } from "./components/challenges/1/main";
+import {
+  Idea1,
+  Idea2,
+  Idea5,
+  Idea6,
+  Idea7,
+} from "./components/challenges/1/main";
 
 export default function Home() {
   return (
@@ -13,6 +19,7 @@ export default function Home() {
 
             <Idea5 />
             <Idea6 />
+            <Idea7 />
           </div>
         </div>
       </main>
