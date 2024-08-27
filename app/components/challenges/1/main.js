@@ -273,63 +273,57 @@ export const Idea7 = () => {
           style={{ objectFit: "cover" }}
           sizes="(max-width: 384px) 100vw, 384px"
         />
-        <AnimatePresence>
-          <motion.div
-            className={`${styles.gradientBlur} ${styles.gradientBlurBottom} absolute inset-0`}
-            animate={{ height: isRevealed ? "100%" : "30%" }}
-          >
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-          </motion.div>
-          <motion.div className="flex flex-col justify-end relative w-full">
-            <motion.div className="p-4 text-white z-10" layout>
+
+        <motion.div
+          className={`${styles.gradientBlur} ${styles.gradientBlurBottom} absolute inset-0`}
+          animate={{ height: isRevealed ? "100%" : "30%" }}
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </motion.div>
+        <motion.div className="flex flex-col justify-end relative w-full">
+          <motion.div className="p-4 text-white z-10" layout>
+            <AnimatePresence mode={"popLayout"}>
               <motion.p className="font-bold" layout>
                 {data.photographer.name}
               </motion.p>
               <motion.p className="text-sm" layout>
                 {data.photographer.social}
               </motion.p>
-
-              {isRevealed && (
-                <motion.div
-                  variants={metadataVariants}
-                  initial="hidden"
-                  animate="show"
-                  exit="exit"
-                  layout
-                >
-                  <h2 className="text-xl font-bold mt-4 mb-2">Metadata</h2>
-                  <motion.ul layout>
-                    <motion.li
-                      className="mb-1"
-                      variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        show: { opacity: 1, y: 0 },
-                      }}
-                    >
-                      <span className="font-semibold">Location:</span>{" "}
-                      {data.metadata.location}
-                    </motion.li>
-                    <motion.li
-                      className="mb-1"
-                      variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        show: { opacity: 1, y: 0 },
-                      }}
-                    >
-                      <span className="font-semibold">Camera:</span>{" "}
-                      {data.metadata.camera.brand} {data.metadata.camera.model}
-                    </motion.li>
-                  </motion.ul>
-                </motion.div>
-              )}
-            </motion.div>
+              <AnimatePresence mode={"popLayout"}>
+                {isRevealed && (
+                  <motion.div
+                    variants={metadataVariants}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    layout
+                  >
+                    <motion.h2 layout className="text-xl font-bold mt-4 mb-2">
+                      Metadata
+                    </motion.h2>
+                    <motion.ul layout>
+                      <motion.li className="mb-1">
+                        <span className="font-semibold">Location:</span>{" "}
+                        {data.metadata.location}
+                      </motion.li>
+                      <motion.li className="mb-1">
+                        <span className="font-semibold">Camera:</span>{" "}
+                        {data.metadata.camera.brand}{" "}
+                        {data.metadata.camera.model}
+                      </motion.li>
+                    </motion.ul>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </AnimatePresence>
           </motion.div>
-        </AnimatePresence>
+        </motion.div>
       </div>
     </motion.div>
   );
