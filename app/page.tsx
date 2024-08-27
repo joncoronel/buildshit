@@ -14,11 +14,6 @@ export default function Home() {
         <div className="flex flex-col gap-4">
           <h1 className="text-2xl font-bold">Build Shit Challenge 1</h1>
           <div className="flex  w-full gap-4 flex-wrap">
-            <Idea1 />
-            <Idea2 />
-
-            <Idea5 />
-            <Idea6 />
             <Idea7 />
           </div>
         </div>

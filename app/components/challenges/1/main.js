@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { motion, LayoutGroup, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { RefreshCw, CircleArrowUp } from "lucide-react";
+import {
+  RefreshCw,
+  CircleArrowUp,
+  MapPin,
+  Camera,
+  Aperture,
+} from "lucide-react";
 import Photo from "@/public/challenges/1/photo.avif";
 import data from "./data.json";
 import styles from "./blur.module.css";
@@ -238,25 +244,8 @@ export const Idea6 = () => {
 export const Idea7 = () => {
   const [isRevealed, setIsRevealed] = useState(false);
 
-  const metadataVariants = {
-    hidden: { opacity: 0, y: 50 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.3,
-        when: "beforeChildren",
-        staggerChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      y: 50,
-      transition: {
-        duration: 3,
-      },
-    },
-  };
+  // Define a custom transition
+  const layoutTransition = { type: "spring", duration: 0.3, bounce: 0.2 };
 
   return (
     <motion.div
@@ -264,15 +253,22 @@ export const Idea7 = () => {
       onMouseEnter={() => setIsRevealed(true)}
       onMouseLeave={() => setIsRevealed(false)}
       layout
+      transition={layoutTransition}
     >
-      <div className="flex items-end relative aspect-[3/4] w-full">
-        <Image
-          src={Photo}
-          alt="Photograph"
-          fill
-          style={{ objectFit: "cover" }}
-          sizes="(max-width: 384px) 100vw, 384px"
-        />
+      <div className="flex items-end relative aspect-[3/4] w-full overflow-hidden">
+        <div
+          className={`absolute inset-0 ${
+            isRevealed ? "scale-110" : "scale-100"
+          } transition-all duration-200 `}
+        >
+          <Image
+            src={Photo}
+            alt="Photograph"
+            fill
+            style={{ objectFit: "cover" }}
+            sizes="(max-width: 384px) 100vw, 384px"
+          />
+        </div>
 
         <motion.div
           className={`${styles.gradientBlur} ${styles.gradientBlurBottom} absolute inset-0`}
@@ -286,35 +282,54 @@ export const Idea7 = () => {
           <div></div>
         </motion.div>
         <motion.div className="flex flex-col justify-end relative w-full">
-          <motion.div className="p-4 text-white z-10" layout>
+          <motion.div
+            className="p-4 text-white z-10"
+            layout
+            transition={layoutTransition}
+          >
             <AnimatePresence mode={"popLayout"}>
-              <motion.p className="font-bold" layout>
+              <motion.p
+                className="font-bold"
+                layout="position"
+                transition={layoutTransition}
+              >
                 {data.photographer.name}
               </motion.p>
-              <motion.p className="text-sm" layout>
+              <motion.p
+                className="text-sm"
+                layout="position"
+                transition={layoutTransition}
+              >
                 {data.photographer.social}
               </motion.p>
               <AnimatePresence mode={"popLayout"}>
                 {isRevealed && (
                   <motion.div
-                    variants={metadataVariants}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 20 }}
                     layout
+                    className="flex flex-col gap-2 mt-4"
                   >
-                    <motion.h2 layout className="text-xl font-bold mt-4 mb-2">
-                      Metadata
-                    </motion.h2>
-                    <motion.ul layout>
-                      <motion.li className="mb-1">
-                        <span className="font-semibold">Location:</span>{" "}
+                    <motion.ul
+                      className={"text-xs"}
+                      layout
+                      transition={layoutTransition}
+                    >
+                      <motion.li
+                        className="mb-1 flex flex-row items-center gap-2"
+                        transition={layoutTransition}
+                      >
+                        <MapPin className="w-3 h-3" />
                         {data.metadata.location}
                       </motion.li>
-                      <motion.li className="mb-1">
-                        <span className="font-semibold">Camera:</span>{" "}
-                        {data.metadata.camera.brand}{" "}
+                      <motion.li
+                        className="mb-1 flex flex-row items-center gap-2"
+                        transition={layoutTransition}
+                      >
+                        <Aperture className="w-3 h-3" />
+                        {data.metadata.camera.brand}
+                        {", "}
                         {data.metadata.camera.model}
                       </motion.li>
                     </motion.ul>
